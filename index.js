@@ -1,29 +1,13 @@
 const express = require('express');
 
 const app = express();
+const viewRouter = require('./list-view-router.js');
+const editRouter = require('./list-edit-router.js');
+const { getTasks } = require('./config.js');
 
 const PORT = 23727;
 
-const taskList = [
-    {
-        id: 123456,
-        isCompleted: false,
-        description: "Walk the dog"
-    },
-    {
-        id: 789012,
-        isCompleted: true,
-        description: "Do the homework"
-    },
-    {
-        id: 184357,
-        isCompleted: false,
-        description: "Buy some milk"
-    }
-]
-
-app.get('/tasks', (req, res) => {
-    res.json(taskList);
-});
+app.use('/', viewRouter);
+app.use('/', editRouter);
 
 app.listen(PORT);

@@ -6,8 +6,10 @@ Este proyecto es una aplicación backend desarrollada con Express.js. Su propós
 
 1. **Gestión de Tareas**: Facilita la creación, actualización y eliminación de tareas.
 2. **Operaciones CRUD**: Proporciona endpoints para crear, leer, actualizar y eliminar tareas.
+3. **Filtrado de Tareas**: Los usuarios pueden filtrar las tareas para ver si alguna de ella se encuentra pendiente y fijarse solo en estas para aprovechar al máximo su tiempo.
+3. **Búsqueda de Tareas**: Los usuarios pueden buscar una tarea específica teniendo en cuenta su ID. 
 
-Estas funcionalidades son esenciales para garantizar una gestión eficiente de las tareas.
+Estas funcionalidades son esenciales para garantizar una gestión y organización eficiente de las actividades diarias.
 
 ### Importancia de las funcionalidades
 

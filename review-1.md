@@ -49,9 +49,10 @@ Este archivo define las rutas relacionadas con la edición de las tareas. Incluy
 Para ejecutar el proyecto, sigue estos pasos:
 
 1. Clona el repositorio en tu máquina local con el comando `git clone https://github.com/SamuRoj/task-list-server.git`.
-2. Cambia a la rama project-2 con el comando `git checkout project-2`.
-3. Instala las dependencias utilizando `npm install`.
-4. Inicia el servidor con el comando `npm run dev`.
+2. Ingresa al directorio del proyecto con el comando `cd task-list-server`
+3. Cambia a la rama project-2 con el comando `git checkout review-1`.
+4. Instala express con el comando `npm install --save express` 
+5. Inicia el servidor con el comando `node index.js`.
 
 El servidor estará disponible en `http://localhost:23727` y podrás interactuar con la API utilizando herramientas como Postman o Insomnia.
 

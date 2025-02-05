@@ -10,4 +10,6 @@ const PORT = 23727;
 app.use('/', viewRouter);
 app.use('/', editRouter);
 
-app.listen(PORT);
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

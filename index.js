@@ -1,6 +1,8 @@
 const express = require('express');
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const viewRouter = require('./list-view-router.js');
 const editRouter = require('./list-edit-router.js');
 const { getTasks } = require('./config.js');

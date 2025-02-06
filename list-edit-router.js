@@ -5,7 +5,7 @@ const taskList = getTasks();
 const router = express.Router();
 
 router.post('/tasks', (req, res) => {
-    const { id, isCompleted, description } = req.query;
+    const { id, isCompleted, description } = req.body;
     const task = {id : parseInt(id), isCompleted: isCompleted, description: description};
     taskList.push(task);
     setTasks(taskList);
@@ -14,7 +14,7 @@ router.post('/tasks', (req, res) => {
 
 router.put('/tasks/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const { isCompleted, description } = req.query;
+    const { isCompleted, description } = req.body;
     taskList.filter(task => {
         if (task.id === id) {
             task.isCompleted = isCompleted;

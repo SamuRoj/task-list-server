@@ -4,26 +4,32 @@ const { getTasks, setTasks } = require('./config.js');
 const taskList = getTasks();
 const router = express.Router();
 
+// Post Request
+
 router.post('/tasks', (req, res) => {
-    const { id, isCompleted, description } = req.body;
-    const task = {id : parseInt(id), isCompleted: isCompleted, description: description};
+    const { isCompleted, description } = req.body;
+    const task = {id : taskList.length + 1, isCompleted: JSON.parse(isCompleted), description: description};
     taskList.push(task);
     setTasks(taskList);
     res.send("Task added successfully.");
 });
+
+// PUT Request
 
 router.put('/tasks/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const { isCompleted, description } = req.body;
     taskList.filter(task => {
         if (task.id === id) {
-            task.isCompleted = isCompleted;
+            task.isCompleted = JSON.parse(isCompleted);
             task.description = description; 
         }
     });
     setTasks(taskList);
     res.send("Task modified successfully.");
 })
+
+// DELETE Request
 
 router.delete('/tasks/:id', (req, res) => {
     const id = parseInt(req.params.id)

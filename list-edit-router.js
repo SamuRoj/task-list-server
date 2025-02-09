@@ -1,22 +1,67 @@
 const express = require('express');
-const { getTasks, setTasks } = require('./config.js');
+const { getTasks, setTasks } = require('./tasks.js');
 
 const taskList = getTasks();
 const router = express.Router();
 
-// Post Request
+// POST Request and Middleware
 
-router.post('/tasks', (req, res) => {
+const postMiddleware = (req, res, next) => {
+    if(req.body == undefined){
+        res.status(400).json({message : "Bad request"})
+    } 
+    else{
+        const { isCompleted, description } = req.body;
+
+        if(isCompleted == undefined || description == undefined){
+            res.status(400).json({message : "Bad request"})
+        }
+        else if(typeof JSON.parse(isCompleted) !== 'boolean' || typeof description !== 'string'){
+            res.status(400).json({message : "Bad request"})
+        }
+        else {
+            next();
+        }
+    }
+};
+
+router.post('/tasks', postMiddleware, (req, res) => {
     const { isCompleted, description } = req.body;
     const task = {id : taskList.length + 1, isCompleted: JSON.parse(isCompleted), description: description};
     taskList.push(task);
     setTasks(taskList);
-    res.send("Task added successfully.");
+    res.status(201).send("Task added successfully.");
 });
 
-// PUT Request
+// PUT Request and Middleware
 
-router.put('/tasks/:id', (req, res) => {
+const putMiddleware = (req, res, next) => {
+    if(req.body == undefined){
+        res.status(400).json({message : "Bad request"})
+    }
+    else{
+        const id = parseInt(req.params.id);	
+        const { isCompleted, description } = req.body;
+
+        if(id == undefined || isCompleted == undefined || description == undefined){
+            res.status(400).json({message : "Bad request"})
+        }
+        else if(typeof id !== 'number' || typeof JSON.parse(isCompleted) !== 'boolean' || typeof description !== 'string'){
+            res.status(400).json({message : "Bad request"})
+        }
+        else {
+            const task = taskList.filter(task => (task.id === id));
+            if(task.length === 0){
+                res.status(404).json({message : "Not Found"})
+            }
+            else{
+                next();
+            }   
+        }
+    }
+};
+
+router.put('/tasks/:id', putMiddleware, (req, res) => {
     const id = parseInt(req.params.id);
     const { isCompleted, description } = req.body;
     taskList.filter(task => {
@@ -26,8 +71,8 @@ router.put('/tasks/:id', (req, res) => {
         }
     });
     setTasks(taskList);
-    res.send("Task modified successfully.");
-})
+    res.status(200).send("Task modified successfully.");
+});
 
 // DELETE Request
 
@@ -38,9 +83,9 @@ router.delete('/tasks/:id', (req, res) => {
     if (taskIndex !== -1) {
         taskList.splice(taskIndex, 1);
         setTasks(taskList);
-        res.send("Task deleted successfully");
+        res.status(200).send("Task deleted successfully");
     } else {
-        res.send("Task not found");
+        res.status(404).send({ message: "Not Found"});
     }
 });
 

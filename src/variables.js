@@ -1,20 +1,31 @@
-// config.js
+// variables.js
 
 let taskList = [
     {
-        id: 123456,
+        id: 1,
         isCompleted: false,
         description: "Walk the dog"
     },
     {
-        id: 789012,
+        id: 2,
         isCompleted: true,
         description: "Do the homework"
     },
     {
-        id: 184357,
+        id: 3,
         isCompleted: false,
         description: "Buy some milk"
+    }
+]
+
+let users = [
+    {
+        name: "admin",
+        email: "admin@example.com"
+    },
+    {
+        name: "user",
+        email: "user@example.com"
     }
 ]
 
@@ -24,5 +35,6 @@ const setTasks = (newTaskList) => {
     taskList = newTaskList;
 }
 
+const getUsers = () => users;
 
-module.exports = { getTasks, setTasks };
+module.exports = { getTasks, setTasks, getUsers };

@@ -1,11 +1,12 @@
+// Imports
 const express = require('express');
-const { getTasks, setTasks } = require('./tasks.js');
+const { getTasks, setTasks } = require('./variables.js');
 
+// Variables
 const taskList = getTasks();
 const router = express.Router();
 
 // POST Request and Middleware
-
 const postMiddleware = (req, res, next) => {
     if(req.body == undefined){
         res.status(400).json({message : "Bad request"})
@@ -34,7 +35,6 @@ router.post('/tasks', postMiddleware, (req, res) => {
 });
 
 // PUT Request and Middleware
-
 const putMiddleware = (req, res, next) => {
     if(req.body == undefined){
         res.status(400).json({message : "Bad request"})
@@ -75,7 +75,6 @@ router.put('/tasks/:id', putMiddleware, (req, res) => {
 });
 
 // DELETE Request
-
 router.delete('/tasks/:id', (req, res) => {
     const id = parseInt(req.params.id)
     const taskIndex = taskList.findIndex(task => task.id === id);

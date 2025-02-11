@@ -1,11 +1,12 @@
+// Imports
 const express = require('express');
-const { getTasks } = require('./tasks.js');
+const { getTasks } = require('./variables.js');
 
+// Variables
 const taskList = getTasks();
 const router = express.Router();
 
 // GET Request and Middleware
-
 const getMiddleware = (req, res, next) => {
     const { status } = req.query;
     if(status === undefined){
@@ -32,7 +33,6 @@ router.get('/tasks', getMiddleware, (req, res) => {
 });
 
 // Get method with Id param and Middleware
-
 const getIdMiddleware = (req, res, next) => {
     const id = parseInt(req.params.id);
     const task = taskList.filter(task => task.id === id);
